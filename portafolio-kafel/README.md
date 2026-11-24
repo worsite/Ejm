@@ -11,10 +11,14 @@ Para presentar: botón de pantalla completa (arriba a la derecha) y flechas ← 
 
 | Qué | Dónde | Notas |
 |---|---|---|
-| Catálogos reales (sección "Trabajos") | `var WORKS = [ … ]` | `{ name, plan:'base'\|'normal'\|'premium', url, es, en }`. El nombre de la empresa no se traduce; `es`/`en` son la descripción. |
+| Catálogos reales (aparecen al elegir un plan) | `var WORKS = [ … ]` | `{ name, plan:'base'\|'normal'\|'premium', url, es, en }`. El nombre de la empresa no se traduce; `es`/`en` son la descripción. |
 | WhatsApp / correo del cierre | `var CONFIG = { whatsapp, email }` | WhatsApp solo con dígitos e indicativo (`573001234567`). Si queda vacío, el botón no aparece. |
 | Cualquier texto | `var T = { 'clave': [español, inglés] }` | Cada texto tiene sus dos idiomas lado a lado. |
-| Planes del catálogo | `var PLANS` + claves `pf.*` en `T` | Los precios están omitidos a propósito. |
+| Planes y precios del catálogo | `var PLANS` (`price`) + claves `pf.*` en `T` | Precios únicos en COP. |
+| Suscripciones mensuales | `var SUBS` (`price`) + claves `sub.*`/`sf.*` en `T` | Se muestran dentro del plan elegido. |
+
+## Cómo se revela la información
+Precios, ejemplos reales, suscripciones y demos **no se ven** hasta que el usuario abre el servicio y elige un plan (o pulsa el botón de la demo). En celular y tablet hay un menú de secciones en la barra superior.
 
 ## Notas
 - Tema oscuro/claro e idioma ES/EN se recuerdan en el navegador (localStorage). Si no hay preferencia guardada, el idioma sigue el del navegador.
