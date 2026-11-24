@@ -210,6 +210,15 @@ h1 .acc{display:block;color:var(--accent-text)}
 .srv-txt{flex:1;min-width:0}
 .srv-name{display:block;font-size:1.25rem;font-weight:800;line-height:1.2;letter-spacing:-.01em;margin-bottom:6px}
 .srv-pitch{display:block;color:var(--muted);font-size:.9375rem;line-height:1.5}
+.srv-cta{display:inline-flex;align-items:center;gap:6px;margin-top:12px;min-height:32px;font-weight:700;font-size:.875rem;color:var(--accent-text)}
+.srv-cta .i{width:1.1em;height:1.1em;transition:transform var(--t-med) var(--ease)}
+.srv-cta .t-close{display:none}
+.srv-head[aria-expanded="true"] .srv-cta .t-open{display:none}
+.srv-head[aria-expanded="true"] .srv-cta .t-close{display:inline}
+.srv-head[aria-expanded="true"] .srv-cta .i{transform:rotate(180deg)}
+.srv-head[aria-expanded="false"] .srv-plus{background:var(--accent);color:var(--on-accent);border-color:var(--accent);animation:nudge 2.4s ease-in-out infinite}
+@keyframes nudge{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 55%,transparent)}60%{box-shadow:0 0 0 10px transparent}}
+@media (prefers-reduced-motion:reduce){.srv-head[aria-expanded="false"] .srv-plus{animation:none}}
 .srv-plus{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--border-strong);flex:none;transition:transform var(--t-med) var(--ease),background var(--t-fast)}
 .srv-head[aria-expanded="true"] .srv-plus{transform:rotate(45deg);background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 .srv-panel{margin-top:calc(var(--s4) * -1)}
@@ -534,7 +543,7 @@ noscript p{padding:120px 24px;text-align:center}
       <div class="srv" data-id="cat">
         <button type="button" class="srv-head reveal" id="h-cat" aria-expanded="false" aria-controls="p-cat">
           <span class="srv-ico"><svg class="i" aria-hidden="true"><use href="#i-bag"/></svg></span>
-          <span class="srv-txt"><span class="srv-name" data-i18n="srv.cat.name"></span><span class="srv-pitch" data-i18n="srv.cat.pitch"></span></span>
+          <span class="srv-txt"><span class="srv-name" data-i18n="srv.cat.name"></span><span class="srv-pitch" data-i18n="srv.cat.pitch"></span><span class="srv-cta" aria-hidden="true"><span class="t-open" data-i18n="srv.tapOpen"></span><span class="t-close" data-i18n="srv.tapClose"></span><svg class="i" aria-hidden="true"><use href="#i-down"/></svg></span></span>
           <span class="srv-plus"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span>
         </button>
         <div class="srv-panel collapse" id="p-cat" role="region" aria-labelledby="h-cat" inert>
@@ -582,7 +591,7 @@ noscript p{padding:120px 24px;text-align:center}
       <div class="srv" data-id="inv">
         <button type="button" class="srv-head reveal" style="--d:1" id="h-inv" aria-expanded="false" aria-controls="p-inv">
           <span class="srv-ico"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg></span>
-          <span class="srv-txt"><span class="srv-name" data-i18n="srv.inv.name"></span><span class="srv-pitch" data-i18n="srv.inv.pitch"></span></span>
+          <span class="srv-txt"><span class="srv-name" data-i18n="srv.inv.name"></span><span class="srv-pitch" data-i18n="srv.inv.pitch"></span><span class="srv-cta" aria-hidden="true"><span class="t-open" data-i18n="srv.tapOpen"></span><span class="t-close" data-i18n="srv.tapClose"></span><svg class="i" aria-hidden="true"><use href="#i-down"/></svg></span></span>
           <span class="srv-plus"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span>
         </button>
         <div class="srv-panel collapse" id="p-inv" role="region" aria-labelledby="h-inv" inert>
@@ -621,7 +630,7 @@ noscript p{padding:120px 24px;text-align:center}
       <div class="srv" data-id="agenda">
         <button type="button" class="srv-head reveal" style="--d:2" id="h-agenda" aria-expanded="false" aria-controls="p-agenda">
           <span class="srv-ico"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg></span>
-          <span class="srv-txt"><span class="srv-name" data-i18n="srv.agenda.name"></span><span class="srv-pitch" data-i18n="srv.agenda.pitch"></span></span>
+          <span class="srv-txt"><span class="srv-name" data-i18n="srv.agenda.name"></span><span class="srv-pitch" data-i18n="srv.agenda.pitch"></span><span class="srv-cta" aria-hidden="true"><span class="t-open" data-i18n="srv.tapOpen"></span><span class="t-close" data-i18n="srv.tapClose"></span><svg class="i" aria-hidden="true"><use href="#i-down"/></svg></span></span>
           <span class="srv-plus"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span>
         </button>
         <div class="srv-panel collapse" id="p-agenda" role="region" aria-labelledby="h-agenda" inert>
@@ -654,7 +663,7 @@ noscript p{padding:120px 24px;text-align:center}
       <div class="srv" data-id="app">
         <button type="button" class="srv-head reveal" style="--d:3" id="h-app" aria-expanded="false" aria-controls="p-app">
           <span class="srv-ico"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span>
-          <span class="srv-txt"><span class="srv-name" data-i18n="srv.app.name"></span><span class="srv-pitch" data-i18n="srv.app.pitch"></span></span>
+          <span class="srv-txt"><span class="srv-name" data-i18n="srv.app.name"></span><span class="srv-pitch" data-i18n="srv.app.pitch"></span><span class="srv-cta" aria-hidden="true"><span class="t-open" data-i18n="srv.tapOpen"></span><span class="t-close" data-i18n="srv.tapClose"></span><svg class="i" aria-hidden="true"><use href="#i-down"/></svg></span></span>
           <span class="srv-plus"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span>
         </button>
         <div class="srv-panel collapse" id="p-app" role="region" aria-labelledby="h-app" inert>
@@ -792,7 +801,8 @@ var T = {
 
  'srv.eyebrow':['Nuestros servicios','Our services'],
  'srv.h2':['Cuatro soluciones hechas a tu medida','Four solutions made to measure'],
- 'srv.lead':['Toca cada tarjeta para ver cómo funciona, qué incluye y probarlo tú mismo.','Tap each card to see how it works, what it includes and try it yourself.'],
+ 'srv.lead':['Toca o haz clic en cada tarjeta para desplegar cómo funciona, qué incluye y probarlo tú mismo.','Tap or click each card to expand how it works, what it includes and try it yourself.'],
+ 'srv.tapOpen':['Toca para ver más','Tap to see more'],'srv.tapClose':['Toca para cerrar','Tap to close'],
  'srv.cat.name':['Catálogos dinámicos','Dynamic catalogs'],
  'srv.cat.pitch':['Tu vitrina digital: tus clientes ven, eligen y te piden por WhatsApp.','Your digital storefront: customers browse, choose and order from you on WhatsApp.'],
  'srv.inv.name':['Inventarios autónomos','Autonomous inventory'],
