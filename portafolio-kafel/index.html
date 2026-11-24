@@ -316,9 +316,15 @@ h1 .acc{display:block;color:var(--accent-text)}
 .disc[aria-expanded="true"]{border-color:var(--accent)}
 .disc[aria-expanded="true"] .i{transform:rotate(180deg)}
 .disc-body{padding-top:var(--s4)}
-.pick-hint{color:var(--muted);margin-bottom:var(--s4)}
+.pick-hint{color:var(--text);font-weight:600;margin:10px 0 var(--s4)}
+.step-pill{display:inline-flex;align-items:center;min-height:28px;padding:0 12px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-size:.8125rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.pick .pcta{margin-top:8px;font-size:.75rem;font-weight:700;line-height:1.25;color:var(--accent-text);text-decoration:underline;text-underline-offset:3px}
+.pick[aria-expanded="true"] .pcta{text-decoration:none;color:var(--text)}
+.plan-empty{display:flex;align-items:center;gap:var(--s3);padding:var(--s4);border:1.5px dashed var(--accent);border-radius:var(--r-md);background:color-mix(in srgb,var(--accent) 8%,transparent);font-weight:600}
+.plan-empty .i{flex:none;color:var(--accent-text);width:1.5em;height:1.5em;transform:rotate(180deg)}
+.plan-empty[hidden]{display:none}
 .pickgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3)}
-.pick{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:112px;padding:14px 6px;text-align:center;border-radius:var(--r-md);border:1.5px solid var(--border-strong);background:var(--bg);transition:transform var(--t-fast),border-color var(--t-fast),background var(--t-fast)}
+.pick{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:136px;padding:14px 6px;text-align:center;border-radius:var(--r-md);border:1.5px solid var(--border-strong);background:var(--bg);transition:transform var(--t-fast),border-color var(--t-fast),background var(--t-fast)}
 .pick:hover{transform:translateY(-2px);border-color:var(--accent)}
 .pick[aria-expanded="true"]{border-color:var(--accent);background:var(--surface2);box-shadow:0 0 0 1px var(--accent) inset}
 .pick .nm{font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -562,10 +568,13 @@ noscript p{padding:120px 24px;text-align:center}
               </div>
               <div>
                 <h3 data-i18n="plans.eyebrow"></h3>
+                <span class="step-pill" data-i18n="plans.step"></span>
                 <p class="pick-hint" data-i18n="plans.pickHint"></p>
                 <div class="pickgrid" id="planPick" role="group" data-i18n-aria="plans.eyebrow"></div>
               </div>
             </div>
+
+            <p class="plan-empty" id="planEmpty"><svg class="i" aria-hidden="true"><use href="#i-down"/></svg><span data-i18n="plans.empty"></span></p>
 
             <div class="collapse" id="planDetail" inert><div class="in-wrap"><div id="planDetailBody"></div></div></div>
 
@@ -886,7 +895,10 @@ var T = {
 
 
  'disc.demo':['Probar una demo interactiva','Try an interactive demo'],
- 'plans.pickHint':['Toca un plan para ver su precio, lo que incluye y ejemplos reales.','Tap a plan to see its price, what it includes and real examples.'],
+ 'plans.pickHint':['Elige un plan para ver su precio, lo que incluye y ejemplos reales de catálogos que ya entregamos.','Choose a plan to see its price, what it includes and real examples of catalogs we have already delivered.'],
+ 'plans.step':['Paso 1 · Elige tu plan','Step 1 · Choose your plan'],
+ 'plans.cta':['Ver precio y ejemplos','See price and examples'],'plans.selected':['Plan seleccionado','Selected plan'],
+ 'plans.empty':['Selecciona un plan arriba y aquí aparecerán su precio, todo lo que incluye y los catálogos reales de ese plan.','Select a plan above and its price, everything it includes and the real catalogs of that plan will appear here.'],
  'plan.short.base':['Base','Base'],'plan.short.normal':['Normal','Standard'],'plan.short.premium':['Premium','Premium'],
  'pd.once':['Pago único','One-time payment'],'pd.cop':['Pesos colombianos (COP)','Colombian pesos (COP)'],
  'pd.includes':['Qué incluye este plan','What this plan includes'],'pd.examples':['Ejemplos reales de este plan','Real examples of this plan'],
@@ -1038,9 +1050,12 @@ function renderPlans() {
       '<span class="tick">' + svg('check') + '</span>' +
       '<span class="nm">' + t('plan.short.' + p.id) + '</span>' +
       '<b' + (p.limit ? '' : ' class="sm"') + '>' + (p.limit || t('plan.unlimited')) + '</b>' +
-      '<span class="u">' + (p.limit ? t(p.unit) : '') + '</span></button>';
+      '<span class="u">' + (p.limit ? t(p.unit) : '') + '</span>' +
+      '<span class="pcta">' + t(on ? 'plans.selected' : 'plans.cta') + '</span></button>';
   }).join('');
   var det = $('#planDetail'), body = $('#planDetailBody');
+  var emp = $('#planEmpty'); if (emp) emp.hidden = !!selPlan;
+  var hint = $('.pick-hint'); if (hint) hint.hidden = !!selPlan;
   if (!selPlan) { setCollapse(det, false); return; }
   var p = PLANS.filter(function (x) { return x.id === selPlan; })[0];
   var works = WORKS.filter(function (w) { return w.plan === p.id; });
