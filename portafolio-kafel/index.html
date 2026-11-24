@@ -316,6 +316,9 @@ h1 .acc{display:block;color:var(--accent-text)}
 .disc[aria-expanded="true"]{border-color:var(--accent)}
 .disc[aria-expanded="true"] .i{transform:rotate(180deg)}
 .disc-body{padding-top:var(--s4)}
+.pickgrid.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:820px){.checks.cols{display:block;columns:2;column-gap:32px}.checks.cols li{break-inside:avoid;margin-bottom:12px}}
+.checks .hot{font-weight:800;color:var(--accent-text)}
 .pick-hint{color:var(--text);font-weight:600;margin:10px 0 var(--s4)}
 .step-pill{display:inline-flex;align-items:center;min-height:28px;padding:0 12px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-size:.8125rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 .pick .pcta{margin-top:8px;font-size:.75rem;font-weight:700;line-height:1.25;color:var(--accent-text);text-decoration:underline;text-underline-offset:3px}
@@ -618,7 +621,18 @@ noscript p{padding:120px 24px;text-align:center}
                   <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="inv.f5"></span></li>
                 </ul>
               </div>
-              <div><button type="button" class="disc" aria-expanded="false" aria-controls="d-demoInv"><span data-i18n="disc.demo"></span><svg class="i" aria-hidden="true"><use href="#i-down"/></svg></button><div class="collapse" id="d-demoInv" inert><div class="in-wrap"><div class="disc-body"><div class="demo" id="demoInv">
+              <div>
+                <h3 data-i18n="inv.plans.title"></h3>
+                <span class="step-pill" data-i18n="plans.step"></span>
+                <p class="pick-hint" id="invHint" data-i18n="inv.pickHint"></p>
+                <div class="pickgrid c2" id="invPick" role="group" data-i18n-aria="inv.plans.title"></div>
+              </div>
+            </div>
+
+            <p class="plan-empty" id="invEmpty"><svg class="i" aria-hidden="true"><use href="#i-down"/></svg><span data-i18n="inv.empty"></span></p>
+            <div class="collapse" id="invDetail" inert><div class="in-wrap"><div id="invDetailBody"></div></div></div>
+
+            <div><button type="button" class="disc" aria-expanded="false" aria-controls="d-demoInv"><span data-i18n="disc.demo"></span><svg class="i" aria-hidden="true"><use href="#i-down"/></svg></button><div class="collapse" id="d-demoInv" inert><div class="in-wrap"><div class="disc-body"><div class="demo" id="demoInv">
                 <div class="demo-top"><span class="demo-title" data-i18n="inv.demo.title"></span><span class="tag ghost" data-i18n="lbl.example"></span></div>
                 <ul id="invRows" style="display:grid;gap:8px"></ul>
                 <p class="state" id="invState" role="status"></p>
@@ -630,7 +644,6 @@ noscript p{padding:120px 24px;text-align:center}
                 </svg>
                 <div class="inv-meta"><span class="note" data-i18n="inv.chart.note"></span><button type="button" class="btn ghost sm" id="invReset"><svg class="i" aria-hidden="true"><use href="#i-reset"/></svg><span data-i18n="lbl.reset"></span></button></div>
               </div></div></div></div></div>
-            </div>
           </div></div>
         </div>
       </div>
@@ -657,13 +670,21 @@ noscript p{padding:120px 24px;text-align:center}
                   <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="agenda.f5"></span></li>
                 </ul>
               </div>
-              <div><button type="button" class="disc" aria-expanded="false" aria-controls="d-demoAgenda"><span data-i18n="disc.demo"></span><svg class="i" aria-hidden="true"><use href="#i-down"/></svg></button><div class="collapse" id="d-demoAgenda" inert><div class="in-wrap"><div class="disc-body"><div class="demo" id="demoAgenda">
+              <div>
+                <h3 data-i18n="ag.title"></h3>
+                <p class="pick-hint" data-i18n="ag.hint"></p>
+                <button type="button" class="disc" aria-expanded="false" aria-controls="d-agPro"><span data-i18n="ag.toggle"></span><svg class="i" aria-hidden="true"><use href="#i-down"/></svg></button>
+              </div>
+            </div>
+
+            <div class="collapse" id="d-agPro" inert><div class="in-wrap"><div id="agProBody"></div></div></div>
+
+            <div><button type="button" class="disc" aria-expanded="false" aria-controls="d-demoAgenda"><span data-i18n="disc.demo"></span><svg class="i" aria-hidden="true"><use href="#i-down"/></svg></button><div class="collapse" id="d-demoAgenda" inert><div class="in-wrap"><div class="disc-body"><div class="demo" id="demoAgenda">
                 <div class="demo-top"><span class="demo-title" data-i18n="agenda.demo.title"></span><span class="tag ghost" data-i18n="lbl.example"></span></div>
                 <ul class="slots" id="slots"></ul>
                 <p class="state" id="agendaState" role="status"></p>
                 <div class="inv-meta"><span class="note" data-i18n="agenda.demo.note"></span><button type="button" class="btn ghost sm" id="agendaReset"><svg class="i" aria-hidden="true"><use href="#i-reset"/></svg><span data-i18n="lbl.reset"></span></button></div>
               </div></div></div></div></div>
-            </div>
           </div></div>
         </div>
       </div>
@@ -921,6 +942,51 @@ var T = {
  'sf.crm':['Control y base de datos de todos los clientes que compren o ingresen','Control and database of every customer who buys or visits'],
  'sub.note':['Las suscripciones son opcionales y se cobran cada mes, aparte del pago único del catálogo. Valores en pesos colombianos. Se pueden contratar junto con el plan Base, Normal o Premium.','Subscriptions are optional and billed monthly, separate from the one-time catalog payment. Values in Colombian pesos. They can be added to the Base, Normal or Premium plan.'],
  'menu.open':['Abrir menú','Open menu'],'menu.close':['Cerrar menú','Close menu'],
+ 'inv.plans.title':['Planes de inventario','Inventory plans'],
+ 'inv.pickHint':['Elige un plan para ver todo lo que incluye.','Choose a plan to see everything it includes.'],
+ 'inv.cta':['Ver qué incluye','See what’s included'],
+ 'inv.empty':['Selecciona un plan arriba y aquí aparecerá todo lo que incluye.','Select a plan above and everything it includes will appear here.'],
+ 'inv.short.n':['Normal','Standard'],'inv.short.a':['Avanzado','Advanced'],
+ 'inv.name.n':['Inventario Normal','Standard Inventory'],'inv.name.a':['Inventario Avanzado','Advanced Inventory'],
+ 'inv.sub.n':['Pago único · hasta 1.000 productos','One-time payment · up to 1,000 products'],
+ 'inv.sub.a':['Pago único · todo ilimitado','One-time payment · everything unlimited'],
+ 'inv.unit.n':['Productos','Products'],'inv.unit.a':['Todo','Everything'],
+ 'iv.n1':['Hasta 1.000 productos registrados','Up to 1,000 registered products'],
+ 'iv.n2':['Hasta 5.000 transacciones / mes','Up to 5,000 transactions / month'],
+ 'iv.n3':['3 usuarios (1 admin + 2 adicionales)','3 users (1 admin + 2 additional)'],
+ 'iv.n4':['Descuento automático de stock en ventas','Automatic stock deduction on sales'],
+ 'iv.n5':['Cálculo de ganancia por producto','Profit calculation per product'],
+ 'iv.n6':['Registro contable automático por venta','Automatic accounting record per sale'],
+ 'iv.n7':['Reportes básicos en PDF','Basic PDF reports'],
+ 'iv.n8':['Alertas de stock bajo','Low-stock alerts'],
+ 'iv.n9':['Acceso desde celular, PC y tablet','Access from phone, PC and tablet'],
+ 'iv.n10':['Backup automático diario','Automatic daily backup'],
+ 'iv.n11':['Soporte por correo','Email support'],
+ 'iv.a1':['Productos ilimitados','Unlimited products'],
+ 'iv.a2':['Transacciones ilimitadas','Unlimited transactions'],
+ 'iv.a3':['Usuarios ilimitados','Unlimited users'],
+ 'iv.a4':['Múltiples sucursales / ubicaciones','Multiple branches / locations'],
+ 'iv.a5':['Gestión de proveedores','Supplier management'],
+ 'iv.a6':['Dashboard personalizado','Custom dashboard'],
+ 'iv.a7':['API para integraciones con terceros','API for third-party integrations'],
+ 'iv.a8':['Notificaciones en tiempo real','Real-time notifications'],
+ 'iv.a9':['Capacitación para el equipo incluida','Team training included'],
+ 'iv.a10':['Soporte prioritario (chat y teléfono)','Priority support (chat and phone)'],
+ 'ag.title':['Agenda Pro','Agenda Pro'],'ag.label':['Agenda automática','Automatic scheduling'],
+ 'ag.hint':['Toca el botón para ver todo lo que incluye Agenda Pro.','Tap the button to see everything Agenda Pro includes.'],
+ 'ag.toggle':['Ver todo lo que incluye Agenda Pro','See everything Agenda Pro includes'],
+ 'ag.sub':['Pago único de implementación · para siempre','One-time implementation payment · yours for good'],
+ 'ag.inc':['Qué incluye Agenda Pro','What Agenda Pro includes'],
+ 'g1':['Enlace propio para que tus clientes agenden solos','Your own link so your customers can book on their own'],
+ 'g2':['Citas organizadas por fecha, hora y servicio','Appointments organized by date, time and service'],
+ 'g3':['Cero citas cruzadas','Zero overlapping appointments'],'g3.d':['El sistema controla la disponibilidad','The system controls availability'],
+ 'g4':['Recordatorios automáticos al cliente (WhatsApp o email)','Automatic reminders to the customer (WhatsApp or email)'],
+ 'g5':['Vista de calendario semanal y mensual','Weekly and monthly calendar view'],
+ 'g6':['Historial completo por cliente','Complete history per customer'],
+ 'g7':['Gestión de disponibilidad','Availability management'],'g7.d':['Bloquea días u horas fácilmente','Block days or hours easily'],
+ 'g8':['Registro del servicio agendado por cada cita','Record of the booked service for each appointment'],
+ 'g9':['Acceso desde celular, tablet y PC','Access from phone, tablet and PC'],
+ 'g10':['Capacitación incluida para tu equipo','Training included for your team'],
  'proc.eyebrow':['Cómo trabajamos','How we work'],'proc.h2':['De tu idea a tu sistema funcionando','From your idea to your system up and running'],
  'proc.s1.t':['Escuchamos tu negocio','We listen to your business'],'proc.s1.d':['Entendemos cómo trabajas, qué te quita tiempo y qué quieres lograr.','We understand how you work, what eats your time and what you want to achieve.'],
  'proc.s2.t':['Lo diseñamos a tu medida','We design it to your measure'],'proc.s2.d':['Con tu logo, tu esencia y la forma de trabajar de tu empresa.','With your logo, your essence and the way your company works.'],
@@ -973,6 +1039,12 @@ var PLANS = [
     feats:[['pf.panelFull','pf.panelFull.d'],['pf.comments'],['pf.offers'],['pf.videos'],['pf.welcome'],['pf.orders'],['pf.designCustom'],['pf.control']] }
 ];
 
+var INV_PLANS = [
+  { id:'n', limit:'1.000', feats:['iv.n1','iv.n2','iv.n3','iv.n4','iv.n5','iv.n6','iv.n7','iv.n8','iv.n9','iv.n10','iv.n11'] },
+  { id:'a', limit:null,    feats:['iv.a1','iv.a2','iv.a3','iv.a4','iv.a5','iv.a6','iv.a7','iv.a8','iv.a9','iv.a10'] }
+];
+var AGENDA_FEATS = [['g1'],['g2'],['g3','g3.d',true],['g4'],['g5'],['g6'],['g7','g7.d'],['g8'],['g9'],['g10']];
+
 var SUBS = [
   { id:'ini', price:'$20.000', hl:false, feats:[['sf.db'],['sf.photos1','sf.photos.d']] },
   { id:'adv', price:'$30.000', hl:true,  feats:[['sf.db'],['sf.photos2','sf.photos.d'],['sf.design','sf.design.d'],['sf.updates'],['sf.teach']] },
@@ -995,7 +1067,7 @@ function resetAgenda() {
 }
 resetInv(); resetAgenda();
 var INV_MAX = 12;
-var selPlan = null, subOpen = false;
+var selPlan = null, subOpen = false, selInv = null;
 
 /* =====================================================================
    Render
@@ -1033,10 +1105,40 @@ function setCard(card, open) {
   $('span', b).textContent = t(open ? 'prob.hide' : 'prob.show');
 }
 
-function featList(feats) {
-  return '<ul class="checks">' + feats.map(function (f) {
-    return '<li>' + svg('check') + '<span>' + t(f[0]) + (f[1] ? '<small>' + t(f[1]) + '</small>' : '') + '</span></li>';
+function featList(feats, cols) {
+  return '<ul class="checks' + (cols ? ' cols' : '') + '">' + feats.map(function (f) {
+    return '<li>' + svg('check') + '<span' + (f[2] ? ' class="hot"' : '') + '>' + t(f[0]) + (f[1] ? '<small>' + t(f[1]) + '</small>' : '') + '</span></li>';
   }).join('') + '</ul>';
+}
+function renderInvPlans() {
+  var pick = $('#invPick'); if (!pick) return;
+  pick.innerHTML = INV_PLANS.map(function (p) {
+    var on = selInv === p.id;
+    return '<button type="button" class="pick" data-invplan="' + p.id + '" aria-expanded="' + on + '" aria-controls="invDetail">' +
+      '<span class="tick">' + svg('check') + '</span>' +
+      '<span class="nm">' + t('inv.short.' + p.id) + '</span>' +
+      '<b' + (p.limit ? '' : ' class="sm"') + '>' + (p.limit || t('plan.unlimited')) + '</b>' +
+      '<span class="u">' + t('inv.unit.' + p.id) + '</span>' +
+      '<span class="pcta">' + t(on ? 'plans.selected' : 'inv.cta') + '</span></button>';
+  }).join('');
+  var emp = $('#invEmpty'); if (emp) emp.hidden = !!selInv;
+  var hint = $('#invHint'); if (hint) hint.hidden = !!selInv;
+  var det = $('#invDetail');
+  if (!selInv) { setCollapse(det, false); return; }
+  var p = INV_PLANS.filter(function (x) { return x.id === selInv; })[0];
+  $('#invDetailBody').innerHTML = '<article class="pdetail"><div class="pd-head"><div>' +
+    '<div class="price" style="font-size:clamp(1.75rem,1.2rem + 2.2vw,2.5rem)">' + t('inv.name.' + p.id) + '</div>' +
+    '<span class="price-sub">' + t('inv.sub.' + p.id) + '</span></div></div>' +
+    '<div><h3>' + t('pd.includes') + '</h3>' + featList(p.feats.map(function (k) { return [k]; }), true) + '</div></article>';
+  setCollapse(det, true);
+}
+function renderAgPro() {
+  var host = $('#agProBody'); if (!host) return;
+  host.innerHTML = '<article class="pdetail"><div class="pd-head"><div>' +
+    '<span class="plan-name" style="font-size:.8125rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)">' + t('ag.label') + '</span>' +
+    '<div class="price" style="font-size:clamp(1.75rem,1.2rem + 2.2vw,2.5rem)">' + t('ag.title') + '</div>' +
+    '<span class="price-sub">' + t('ag.sub') + '</span></div></div>' +
+    '<div><h3>' + t('ag.inc') + '</h3>' + featList(AGENDA_FEATS, true) + '</div></article>';
 }
 function setCollapse(el, open) {
   el.classList.toggle('open', open);
@@ -1158,7 +1260,7 @@ function applyLang() {
   $$('[data-i18n]').forEach(function (el) { el.textContent = t(el.getAttribute('data-i18n')); });
   $$('[data-i18n-aria]').forEach(function (el) { el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))); });
   $$('.seg [data-setlang]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-setlang') === lang); });
-  renderProblems(); renderPlans(); renderCat(); renderInv(); renderAgenda(); renderContact();
+  renderProblems(); renderPlans(); renderInvPlans(); renderAgPro(); renderCat(); renderInv(); renderAgenda(); renderContact();
   applyThemeLabel(); var mb = $('#menuBtn'); if (mb) mb.setAttribute('aria-label', t(mb.getAttribute('aria-expanded') === 'true' ? 'menu.close' : 'menu.open'));
 }
 function applyThemeLabel() {
@@ -1229,6 +1331,12 @@ document.addEventListener('click', function (e) {
     var id = el.getAttribute('data-plan'); selPlan = selPlan === id ? null : id; renderPlans();
     var again = $('[data-plan="' + id + '"]'); if (again) again.focus({ preventScroll: true });
     if (selPlan) setTimeout(function () { var d = $('#planDetail'); if (d) d.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' }); }, 60);
+    return;
+  }
+  if ((el = e.target.closest('[data-invplan]'))) {
+    var iid = el.getAttribute('data-invplan'); selInv = selInv === iid ? null : iid; renderInvPlans();
+    var ag = $('[data-invplan="' + iid + '"]'); if (ag) ag.focus({ preventScroll: true });
+    if (selInv) setTimeout(function () { var d = $('#invDetail'); if (d) d.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' }); }, 60);
     return;
   }
   if ((el = e.target.closest('[data-subtoggle]'))) {
