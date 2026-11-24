@@ -15,7 +15,7 @@ Para presentar: botón de pantalla completa (arriba a la derecha) y flechas ← 
 | WhatsApp / correo del cierre | `var CONFIG = { whatsapp, email }` | WhatsApp solo con dígitos e indicativo (`573001234567`). Si queda vacío, el botón no aparece. |
 | Cualquier texto | `var T = { 'clave': [español, inglés] }` | Cada texto tiene sus dos idiomas lado a lado. |
 | Planes y precios del catálogo | `var PLANS` (`price`) + claves `pf.*` en `T` | Precios únicos en COP. |
-| Suscripciones mensuales | `var SUBS` (`price`) + claves `sub.*`/`sf.*` en `T` | Se muestran dentro del plan elegido. |
+| Suscripciones mensuales | `var SUBS` (`price`) + claves `sub.*`/`sf.*` en `T` | Siempre visibles dentro del plan elegido (no son opcionales: garantizan ciberseguridad y mantenimiento). |
 
 ## Cómo se revela la información
 Precios, ejemplos reales, suscripciones y demos **no se ven** hasta que el usuario abre el servicio y elige un plan (o pulsa el botón de la demo). En celular y tablet hay un menú de secciones en la barra superior.
